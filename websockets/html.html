@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>DataChannel simple example</title>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+  $(function () {
+    var socket = io();
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+  });
+</script>
+  <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /></br>
+      <button id="startButton">Start</button>
+      <button id="sendButton">Send</button>
+      <button id="closeButton">Stop</button>
+    </form>
+  </body>
+</html>
